@@ -1,5 +1,5 @@
 <?php
-/* 
+/** 
  * @link https://www.klod.ch/ 
  * @copyright Copyright (c) 2016 Klod SA
  * @author Claude Janz <claude.janz@klod.ch>
@@ -7,7 +7,10 @@
 
 namespace claudejanz\yii2fullcalendar;
 
+use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\base\Widget;
+use yii\web\AssetBundle;
 
 /**
  * This is just an example.
@@ -18,15 +21,7 @@ class Fullcalendar extends Widget
      * Main tag options
      * @var array 
      */
-    public $options = [
-        'class' => 'fullcalendar'
-    ];
-    
-    /**
-     * Theme default is true and will render the jui theme for the fullcalendar
-     * @var bool 
-     */
-    public $theme = true;
+    public $options = [];
 
     /**
      * ClientOptions the attributes for the widget initalisation.
@@ -37,22 +32,18 @@ class Fullcalendar extends Widget
         'default' => 'month',
         'editable' => false,
     ];
-    
-    /**
-     * Define the look n feel for the calendar header, known placeholders are left, center, right
-     * @var array header format
+     
+     /**
+     * Initializes the widget.
+     * adds id to tag option to register plugin
      */
-    public $header = [
-        'center'=>'title',
-        'left'=>'prev,next today',        
-        'right'=>'month,agendaWeek'
-    ];
-    
-    /**
-     * Url of events json output
-     * @var string 
-     */
-     public $events = [];
+    public function init()
+    {
+        parent::init();
+        if (!isset($this->options['id'])) {
+            $this->options['id'] = $this->getId();
+        }
+    }
     
     /**
      * 
@@ -60,6 +51,25 @@ class Fullcalendar extends Widget
      */
     public function run()
     {
-        return "Hello!";
+        echo Html::tag('div','', $this->options);
+        $this->registerPlugin();
+    }
+    
+    /**
+    * Registers the Fullcalendar javascript assets and builds the requiered js for the widget and the related events
+    */
+    protected function registerPlugin()
+    {
+        $id = $this->options['id'];
+        $view = $this->view;
+
+        /** @var AssetBundle $assetClass */
+        FullcalendarAsset::register($view);
+
+        $js = array();
+
+        $clientOptions = Json::encode($this->clientOptions);
+        
+        $view->registerJs("$('#$id').fullCalendar($clientOptions);");
     }
 }
