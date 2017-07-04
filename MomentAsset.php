@@ -8,6 +8,7 @@
 
 namespace claudejanz\yii2fullcalendar;
 
+use Yii;
 use yii\web\AssetBundle;
 
 /**
@@ -21,12 +22,17 @@ class MomentAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@bower/moment/min';
+    public $sourcePath = '@bower/moment';
     
     /**
      * @inheritdoc
      */
     public $js = [
-        'moment.min.js'
+        'min/moment.min.js',
     ];
+    public function init()
+    {
+        
+        $this->js[]='locale/'.substr(strtolower(Yii::$app->language),0,2).'.js';
+    }
 }
