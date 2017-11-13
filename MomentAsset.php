@@ -6,7 +6,7 @@
  * @author Claude Janz <claude.janz@klod.ch>
  */
 
-namespace claudejanz\yii2fullcalendar;
+namespace claudejanz\yii2moment;
 
 use Yii;
 use yii\web\AssetBundle;
@@ -32,7 +32,6 @@ class MomentAsset extends AssetBundle
     ];
     public function init()
     {
-        
         $this->js[]='locale/'.substr(strtolower(Yii::$app->language),0,2).'.js';
     }
 }
