@@ -54,7 +54,7 @@ class FullcalendarAsset extends AssetBundle
      */
     public $depends = [
         'yii\web\YiiAsset',
-        'claudejanz\yii2fullcalendar\MomentAsset',
+        'claudejanz\yii2moment\MomentAsset',
     ];
     
     /**
