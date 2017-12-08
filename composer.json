@@ -21,7 +21,8 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-jui": "*",
-        "claudejanz/yii2-moment": "*"
+        "bower-asset/fullcalendar": "3.*",
+        "bower-asset/moment": ">=2.9"
     },
     "autoload": {
         "psr-4": {
